@@ -5,6 +5,7 @@ import { Task } from '@/types/Task';
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface TaskState {
+    taskTracker: number,
     tasks: { [key: string]: {
         id: string,
         name: string,
@@ -14,6 +15,7 @@ export interface TaskState {
 }
 
 const initialState: TaskState = {
+    taskTracker: 5,
     tasks: {
         'task-1': {
                 id: "task-1",
@@ -40,7 +42,8 @@ const initialState: TaskState = {
               }
             
             ,
-        'task-5': {     id: "task-5",
+        'task-5': {
+                  id: "task-5",
                   name: "be awsome",
                   description: "be born awsome",
                   subtask: []
@@ -53,14 +56,18 @@ export const taskSlice = createSlice({
     name: 'tasks',
     initialState,
     reducers: {
-        // increment: (state) => { state.value += 1},
+        incrementTaskTracker: (state) => { state.taskTracker += 1},
+        addTask: (state, action) => {
+            state.taskTracker += 1;
+            const taskId = 'task-' + state.taskTracker;
+            state.tasks = Object.assign({ [`${taskId}`]: { id: `task-${state.taskTracker}`, name: (action.payload.name), description: (action.payload.description), subtask: []}}, state.tasks);
+            
+        },
         /*
         changeTaskName: (state, action) => {
             state.tasks[0].name = action.payload;
         },
-        addTask: (state, action) => {
-            state.tasks.push(action.payload);
-        },
+
         removeTask: (state, action) => {
             if (action.payload.taskState > -1){
                 state.tasks.splice(action.payload.task, 1)
@@ -70,6 +77,6 @@ export const taskSlice = createSlice({
     }
 });
 
-export const { /*increment, changeTaskName, addTask, removeTask */} = taskSlice.actions;
+export const { /*increment, changeTaskName, addTask, removeTask */ addTask, incrementTaskTracker} = taskSlice.actions;
 
 export default taskSlice.reducer;

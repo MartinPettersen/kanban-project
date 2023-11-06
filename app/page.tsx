@@ -3,12 +3,21 @@
 import Container from '@/components/container/Container'
 import Header from '@/components/header/Header'
 import Image from 'next/image'
+import { useSelector } from 'react-redux';
+import { RootState } from './Redux/store';
+import CreateTask from '@/components/create/CreateTask';
 
 
 
 export default function Home() {
+
+  const createTask = useSelector((state: RootState) => state.create.createTask);
+  const createColumn = useSelector((state: RootState) => state.create.createColumn);
+  const createBoard = useSelector((state: RootState) => state.create.createBoard);
+
+
   return (
-    <main className='h-screen'>
+    <main className='h-screen z-0'>
 
       <Header />
       {/* banner: create board */}
@@ -43,9 +52,11 @@ export default function Home() {
       
       {/* task container: contains all the states task can be in. done todo in progress*/}
       
+      {createTask? <div className="w-full h-full fixed inset-0 z-50 "><CreateTask /></div> :<></>}
 
-      <div className='flex justify-center items-center h-[80%]'>
-        
+      <div className='flex justify-center items-center h-[80%] z-0'>
+
+
         <div className=" w-[80%] h-[100%]">
 
         <Container />

@@ -23,7 +23,11 @@ const Container = () => {
 
   const dispatch = useDispatch();
 
+  
   const taskStates = boards[selectedBoard].taskStates;
+  useEffect(() => {
+    
+  },[])
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId, type } = result;

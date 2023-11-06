@@ -1,6 +1,6 @@
 'use client';
 
-import type { RootState } from '../../app/Redux/store';
+import type { RootState } from '../../../app/Redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import BoardButton from './BoardButton';
 

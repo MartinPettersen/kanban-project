@@ -46,7 +46,7 @@ const Column = ({ taskState, index, id }: Props) => {
                 {taskState.name}
               </h1>
               {taskState.tasks.map((task, i) => (
-                <Task key={tasks[task].name} task={task} index={i} />
+                <Task key={tasks[task].name} task={task} index={i} columnColor={taskState.color} />
               ))}
               {provided.placeholder}
             </div>

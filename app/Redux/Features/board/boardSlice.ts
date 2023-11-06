@@ -42,12 +42,14 @@ const initialState: BoardState = {
             taskStates: [{
               name: "todo",
               id: "taskState-1",
+              color: 'bg-red-400',
               tasks: [ "task-1", "task-2", "task-3", "task-4"
             ]
             },
             {
               name: "in progress",
               id: "taskState-2",
+              color: 'bg-teal-400',
               tasks: [
               ]
             },
@@ -55,12 +57,14 @@ const initialState: BoardState = {
             {
               name: "test",
               id: "taskState-3",
+              color: 'bg-sky-400',
               tasks: [
               ]
             },
             {
               name: "done",
               id: "taskState-4",
+              color: 'bg-slate-600',
               tasks: [
                 "task-5"
               ]
@@ -104,10 +108,10 @@ export const boardSlice = createSlice({
               // sjekke om denna kan klare begge
             }
           }
-          console.log(draggableId)
         },
-        addTaskState: (state, action) => {
-            state.boards[0].taskStates.push(action.payload);
+        addTaskToBoard: (state, action) => {
+            const {selectedBoard, taskId, column} = action.payload;
+            state.boards[selectedBoard].taskStates[column].tasks.push(taskId);
         },
         removeTaskState: (state, action) => {
             if (action.payload.taskState > -1){
@@ -117,6 +121,6 @@ export const boardSlice = createSlice({
     }
 });
 
-export const { changeName, addTaskState, removeTaskState, changeBoard, changeTaskOrder, changeColumnOrder} = boardSlice.actions;
+export const { changeName, addTaskToBoard, removeTaskState, changeBoard, changeTaskOrder, changeColumnOrder} = boardSlice.actions;
 
 export default boardSlice.reducer;
