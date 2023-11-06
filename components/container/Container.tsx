@@ -3,27 +3,18 @@
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import type { RootState } from "../../app/Redux/store";
 import { useSelector, useDispatch } from "react-redux";
-import { changeName, changeTaskOrder } from "@/app/Redux/Features/board/boardSlice";
+import {
+  changeColumnOrder,
+  changeName,
+  changeTaskOrder,
+} from "@/app/Redux/Features/board/boardSlice";
 import { Board } from "@/types/Board";
 import Column from "./Column";
 import { useEffect, useState } from "react";
 
-type Result = {
-  draggableId: string,
-  type: string,
-  reason: string,
-  source: {
-    droppableId: string,
-    index: number,
-  },
-  destination: {
-    droppableId: string,
-    index: number,
-  }
-}
+
 
 const Container = () => {
-  //const [boards, setBoards] = useState<Board[]>([])
   const boards = useSelector((state: RootState) => state.board.boards);
 
   const selectedBoard = useSelector(
@@ -33,11 +24,9 @@ const Container = () => {
   const dispatch = useDispatch();
 
   const taskStates = boards[selectedBoard].taskStates;
-  const tasks = useSelector((state: RootState) => state.task.tasks);
-  
 
-  const onDragEnd = (result: Result) => {
-    const { destination, source, draggableId } = result;
+  const onDragEnd = (result: DropResult) => {
+    const { destination, source, draggableId, type } = result;
 
     if (!destination) {
       return;
@@ -50,21 +39,43 @@ const Container = () => {
       return;
     }
 
-      const startTaskStateColumn = source.droppableId;
-      const finishTaskStateColumn = destination.droppableId;
-      //console.log(taskStateColumn)
-      //console.log(taskStates)
 
-      const currentColumn = taskStates.find((element) => element.id === startTaskStateColumn)
+    if(type === 'column'){
+      console.log(source.index)
+      console.log(destination.index)
+      console.log(destination.droppableId)
+      console.log(draggableId)
 
-      console.log('start ' + startTaskStateColumn)
-      console.log('finish ' + finishTaskStateColumn)
 
-      //console.log(currentColumn.tasks)
-      dispatch(changeTaskOrder({ selectedBoard, sourceIndex: source.index, startTaskStateColumn, finishTaskStateColumn, destinationIndex: destination.index, draggableId}))
-      // console.log(boards[taskStateColumn].tasks)
-    //console.log(destination)
+      
+      dispatch(
+        changeColumnOrder({
+        selectedBoard,
+        sourceIndex: source.index,
+        destinationIndex: destination.index,
+        draggableId,
+        })
+      ); 
+    }
 
+    const startTaskStateColumn = source.droppableId;
+    const finishTaskStateColumn = destination.droppableId;
+
+
+    const currentColumn = taskStates.find(
+      (element) => element.id === startTaskStateColumn
+    );
+
+    dispatch(
+      changeTaskOrder({
+        selectedBoard,
+        sourceIndex: source.index,
+        startTaskStateColumn,
+        finishTaskStateColumn,
+        destinationIndex: destination.index,
+        draggableId,
+      })
+    );
   };
 
   const [winReady, setwinReady] = useState(false);
@@ -73,22 +84,35 @@ const Container = () => {
   }, []);
 
   return (
-    <DragDropContext 
-    onDragEnd={onDragEnd}>
-      <div className="  border border-blue-300  w-[100%] h-[100%]">
-        <div className="flex gap-2 flex-row">
-          {taskStates.map((taskState, i) =>
-            winReady ? (
-              <Column
-                key={taskState.name}
-                id={taskState.name}
-                taskState={taskState}
-                index={i}
-              />
-            ) : null
-          )}
+    <DragDropContext onDragEnd={onDragEnd}>
+      {winReady ? (
+      <Droppable droppableId="columns-container" direction="horizontal" type="column">
+        {provided => (
+
+
+        <div 
+        {...provided.droppableProps}
+        ref={provided.innerRef}
+
+        
+        className="   w-[100%] h-[100%]">
+          <div className="flex gap-2 flex-row">
+            {taskStates.map((taskState, i) =>
+              
+                <Column
+                  key={taskState.name}
+                  id={taskState.name}
+                  taskState={taskState}
+                  index={i}
+                />
+
+            )}
+          </div>
+          {provided.placeholder}
         </div>
-      </div>
+                )}
+      </Droppable>
+                    ) : null}
     </DragDropContext>
   );
 };

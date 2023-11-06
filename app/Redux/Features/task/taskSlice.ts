@@ -3,15 +3,6 @@
 import { Board } from '@/types/Board';
 import { Task } from '@/types/Task';
 import { createSlice } from '@reduxjs/toolkit';
-/*
-export type Task = {
-    id: string,
-    name: string,
-    description: string,
-    subtask: Task[]
-}
-*/
-
 
 export interface TaskState {
     tasks: { [key: string]: {

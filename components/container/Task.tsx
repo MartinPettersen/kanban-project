@@ -11,7 +11,6 @@ type Props = {
 
 const Task = ({ task, index }: Props) => {
   const tasks = useSelector((state: RootState) => state.task.tasks);
-  https://egghead.io/lessons/react-customise-the-appearance-of-an-app-during-a-drag-using-react-beautiful-dnd-snapshot-values
   return (
     <Draggable key={tasks[task].name} draggableId={tasks[task].id} index={index}>
       {(provided, snapshot) => (

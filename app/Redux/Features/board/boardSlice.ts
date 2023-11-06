@@ -74,7 +74,6 @@ export const boardSlice = createSlice({
     name: 'board',
     initialState,
     reducers: {
-        // increment: (state) => { state.value += 1},
         changeBoard: (state, action) => {
             state.selectedBoard = action.payload;
         },
@@ -83,14 +82,13 @@ export const boardSlice = createSlice({
         },
         
         changeColumnOrder: (state, action) => {
-          state.boards[0].name = action.payload;
+          const {sourceIndex, draggableId, selectedBoard, destinationIndex} = action.payload;
+          const tempState = state.boards[selectedBoard].taskStates[sourceIndex];
+          state.boards[selectedBoard].taskStates.splice(sourceIndex, 1);
+          state.boards[selectedBoard].taskStates.splice(destinationIndex, 0, tempState);
+
         },
         changeTaskOrder: (state, action) => {
-          // state.boards[action.payload.selectedBoard].taskStates = action.payload;
-          //const tasks = state.boards[action.payload.selectedBoard].taskStates.find((element) => element.id === action.payload.taskStateColumn);
-          // tasks?.tasks.splice(action.payload.sourceIndex, 1);
-          // tasks?.tasks.splice(action.payload.destinationIndex, 0, action.payload.draggableId)
-          //console.log(state);
           
           const {selectedBoard, sourceIndex, startTaskStateColumn, finishTaskStateColumn, destinationIndex, draggableId} = action.payload;
 
@@ -98,7 +96,6 @@ export const boardSlice = createSlice({
 
             if (startTaskStateColumn === finishTaskStateColumn){
 
-              
               state.boards[selectedBoard].taskStates.find((element) => element.id === startTaskStateColumn)!.tasks.splice(sourceIndex, 1);
               state.boards[selectedBoard].taskStates.find((element) => element.id === startTaskStateColumn)!.tasks.splice(destinationIndex, 0, draggableId);
             } else {
@@ -108,9 +105,6 @@ export const boardSlice = createSlice({
             }
           }
           console.log(draggableId)
-          //state.boards[action.payload.selectedBoard].taskStates.find((element) => element.id === action.payload.taskStateColumn)?.tasks.splice(action.payload.sourceIndex, 1);
-          //state.boards[action.payload.selectedBoard].taskStates.find((element) => element.id === action.payload.taskStateColumn)?.tasks.splice(action.payload.destinationIndex, 0, action.payload.draggableId);
-          //console.log("hi")
         },
         addTaskState: (state, action) => {
             state.boards[0].taskStates.push(action.payload);
@@ -123,90 +117,6 @@ export const boardSlice = createSlice({
     }
 });
 
-export const { /*increment,*/ changeName, addTaskState, removeTaskState, changeBoard, changeTaskOrder} = boardSlice.actions;
+export const { changeName, addTaskState, removeTaskState, changeBoard, changeTaskOrder, changeColumnOrder} = boardSlice.actions;
 
 export default boardSlice.reducer;
-
-/* 
-"use client";
-
-import { Board } from '@/types/Board';
-import { createSlice } from '@reduxjs/toolkit';
-
-
-
-export interface BoardState {
-  selectedBoard: number,
-  boards: Board[]
-}
-
-const initialState: BoardState = {
-  selectedBoard: 0,
-  boards: [
-      {
-          name: "default",
-          taskStates: [{
-            name: "todo",
-            tasks: [{
-              name: "first step",
-              description: "create first board",
-              subtask: [{
-                name: "Awsome Idea Brainstorming",
-                description: "find an awsome idea for your first board",
-                subtask: [{
-                  name: "Awsome name",
-                  description: "All awsome ideas need cool names",
-                  subtask: []
-                }]
-              }]
-            },
-            {
-              name: "delete board",
-              description: "delete the default board",
-              subtask: []
-            }
-          ]
-          },
-          {
-            name: "done",
-            tasks: [
-              {
-                name: "be awsome",
-                description: "be born awsome",
-                subtask: []
-              }
-            ]
-          }
-        ] 
-        }
-  ]
-}
-
-export const boardSlice = createSlice({
-  name: 'board',
-  initialState,
-  reducers: {
-      // increment: (state) => { state.value += 1},
-      changeBoard: (state, action) => {
-          state.selectedBoard = action.payload;
-      },
-      changeName: (state, action) => {
-          state.boards[0].name = action.payload;
-      },
-      addTaskState: (state, action) => {
-          state.boards[0].taskStates.push(action.payload);
-      },
-      removeTaskState: (state, action) => {
-          if (action.payload.taskState > -1){
-              state.boards[0].taskStates.splice(action.payload.taskState, 1)
-          }
-      }
-  }
-});
-
-export const {  changeName, addTaskState, removeTaskState, changeBoard} = boardSlice.actions;
-
-export default boardSlice.reducer;
-
-
-*/

@@ -46,7 +46,7 @@ export default function Home() {
 
       <div className='flex justify-center items-center h-[80%]'>
         
-        <div className="  border border-blue-300  w-[80%] h-[100%]">
+        <div className=" w-[80%] h-[100%]">
 
         <Container />
         </div>
