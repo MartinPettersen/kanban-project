@@ -27,18 +27,48 @@ opprette board:
 
 */
 
-
 export interface BoardState {
     selectedBoard: number,
     boards: Board[]
 }
 
+const defaultColumns =[{
+  name: "todo",
+  id: "taskState-1",
+  color: 'bg-red-400',
+  tasks: [ 
+]
+},
+{
+  name: "in progress",
+  id: "taskState-2",
+  color: 'bg-teal-400',
+  tasks: [
+  ]
+},
+
+{
+  name: "test",
+  id: "taskState-3",
+  color: 'bg-sky-400',
+  tasks: [
+  ]
+},
+{
+  name: "done",
+  id: "taskState-4",
+  color: 'bg-slate-600',
+  tasks: [
+  ]
+}];
+
 const initialState: BoardState = {
     selectedBoard: 0,
     boards: [
-        {
-            name: "default",
-            id: "board-1",
+      {
+        name: "default",
+        id: "board-1",
+        colorPalette: ['red', 'blue','green', 'yellow'],
             taskStates: [{
               name: "todo",
               id: "taskState-1",
@@ -79,7 +109,7 @@ export const boardSlice = createSlice({
     initialState,
     reducers: {
         changeBoard: (state, action) => {
-            state.selectedBoard = action.payload;
+            state.selectedBoard = action.payload.newBoard;
         },
         changeName: (state, action) => {
             state.boards[0].name = action.payload;
@@ -117,10 +147,24 @@ export const boardSlice = createSlice({
             if (action.payload.taskState > -1){
                 state.boards[0].taskStates.splice(action.payload.taskState, 1)
             }
-        }
+        },
+        addColumn: (state, action) => {
+
+          const {selectedBoard, columnName, color, colorPalette } = action.payload;
+          const taskStateId = 'taskState-' + (state.boards[selectedBoard].taskStates.length + 1);
+          state.boards[selectedBoard].taskStates.push({ id: taskStateId, name: columnName, color: `bg-${colorPalette[color]}-400`, tasks: []});
+          
+      },
+      addBoard: (state, action) => {
+
+        const {boardName,  } = action.payload;
+        const boardId = 'board-' + (state.boards.length + 1);
+        state.boards.push({ id: boardId, name: boardName, colorPalette: ['red', 'blue','green', 'yellow'], taskStates: defaultColumns});
+        
+    }
     }
 });
 
-export const { changeName, addTaskToBoard, removeTaskState, changeBoard, changeTaskOrder, changeColumnOrder} = boardSlice.actions;
+export const { changeName, addTaskToBoard, removeTaskState, changeBoard, changeTaskOrder, changeColumnOrder, addColumn, addBoard} = boardSlice.actions;
 
 export default boardSlice.reducer;

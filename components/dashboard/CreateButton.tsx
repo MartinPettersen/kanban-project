@@ -2,16 +2,20 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import type { RootState } from "../../app/Redux/store";
 import { createTask } from "@/app/Redux/Features/create/createSlice";
+import { createBoard } from "@/app/Redux/Features/create/createSlice";
+import { createColumn } from "@/app/Redux/Features/create/createSlice";
+
 
 type props = {
   display: string;
+  dispatchFunction: () => void; 
 };
 
-const CreateButton = ({ display }: props) => {
+const CreateButton = ({ display, dispatchFunction }: props) => {
   const dispatch = useDispatch();
 
   const toggle = () => {
-    dispatch(createTask());
+    dispatch(dispatchFunction());
   };
   return (
     <div

@@ -23,7 +23,9 @@ const Container = () => {
 
   const dispatch = useDispatch();
 
-  
+  console.log(selectedBoard);
+  console.log(boards[selectedBoard]);
+
   const taskStates = boards[selectedBoard].taskStates;
   useEffect(() => {
     
@@ -100,7 +102,7 @@ const Container = () => {
 
         
         className="   w-[100%] h-[100%]">
-          <div className="flex gap-2 flex-row">
+          <div className="flex justify-center gap-2 flex-row">
             {taskStates.map((taskState, i) =>
               
                 <Column

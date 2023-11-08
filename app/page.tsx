@@ -6,6 +6,8 @@ import Image from 'next/image'
 import { useSelector } from 'react-redux';
 import { RootState } from './Redux/store';
 import CreateTask from '@/components/create/CreateTask';
+import CreateColumn from '@/components/create/CreateColumn';
+import CreateBoard from '@/components/create/CreateBoard';
 
 
 
@@ -53,7 +55,8 @@ export default function Home() {
       {/* task container: contains all the states task can be in. done todo in progress*/}
       
       {createTask? <div className="w-full h-full fixed inset-0 z-50 "><CreateTask /></div> :<></>}
-
+      {createColumn? <div className="w-full h-full fixed inset-0 z-50 "><CreateColumn /></div> :<></>}
+      {createBoard? <div className="w-full h-full fixed inset-0 z-50 "><CreateBoard /></div> :<></>}
       <div className='flex justify-center items-center h-[80%] z-0'>
 
 
