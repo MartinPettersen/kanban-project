@@ -5,12 +5,14 @@ export interface TaskState {
     createTask: boolean,
     createColumn: boolean,
     createBoard: boolean,
+
 }
 
 const initialState: TaskState = {
     createBoard: false,
     createColumn: false,
-    createTask: false
+    createTask: false,
+
 }
 
 export const taskSlice = createSlice({
@@ -20,10 +22,9 @@ export const taskSlice = createSlice({
         createTask: (state) => { state.createTask = !state.createTask},
         createBoard: (state) => { state.createBoard = !state.createBoard},
         createColumn: (state) => { state.createColumn = !state.createColumn},
-
     }
 });
 
-export const { createTask, createBoard, createColumn} = taskSlice.actions;
+export const { createTask, createBoard, createColumn } = taskSlice.actions;
 
 export default taskSlice.reducer;

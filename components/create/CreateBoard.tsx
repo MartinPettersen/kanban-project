@@ -11,7 +11,6 @@ const CreateBoard = () => {
 
     const dispatch = useDispatch();
     const toggle = () => {
-      console.log("closing...");
       dispatch(createBoard());
     };
 

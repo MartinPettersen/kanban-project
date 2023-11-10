@@ -8,6 +8,8 @@ import { RootState } from './Redux/store';
 import CreateTask from '@/components/create/CreateTask';
 import CreateColumn from '@/components/create/CreateColumn';
 import CreateBoard from '@/components/create/CreateBoard';
+import DeletePopup from '@/components/delete/DeletePopup';
+
 
 
 
@@ -16,6 +18,8 @@ export default function Home() {
   const createTask = useSelector((state: RootState) => state.create.createTask);
   const createColumn = useSelector((state: RootState) => state.create.createColumn);
   const createBoard = useSelector((state: RootState) => state.create.createBoard);
+  const deletePopup = useSelector((state: RootState) => state.remove.deletePopup);
+
 
 
   return (
@@ -57,6 +61,8 @@ export default function Home() {
       {createTask? <div className="w-full h-full fixed inset-0 z-50 "><CreateTask /></div> :<></>}
       {createColumn? <div className="w-full h-full fixed inset-0 z-50 "><CreateColumn /></div> :<></>}
       {createBoard? <div className="w-full h-full fixed inset-0 z-50 "><CreateBoard /></div> :<></>}
+      {deletePopup? <div className="w-full h-full fixed inset-0 z-50 "><DeletePopup /></div> :<></>}
+
       <div className='flex justify-center items-center h-[80%] z-0'>
 
 

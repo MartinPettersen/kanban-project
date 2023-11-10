@@ -9,7 +9,6 @@ const CreateTask = () => {
   const dispatch = useDispatch();
 
   const toggle = () => {
-    console.log("closing...");
     dispatch(createTask());
   };
 

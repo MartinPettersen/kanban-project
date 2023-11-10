@@ -19,7 +19,6 @@ const CreateColumn = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const toggle = () => {
-    console.log("closing...");
     dispatch(createColumn());
   };
 
@@ -39,7 +38,6 @@ const CreateColumn = () => {
     setColumnId(`taskState-${taskStateList.length}`);
   }, []);
   useEffect(() => {
-    console.log(color);
   }, [color]);
 
   const addColumnHandle = () => {
