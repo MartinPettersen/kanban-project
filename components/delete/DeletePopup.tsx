@@ -1,24 +1,18 @@
 "use client";
-import { createBoard } from "@/app/Redux/Features/create/createSlice";
-import { addTask } from "@/app/Redux/Features/task/taskSlice";
 import {
-  addBoard,
-  addColumn,
-  addTaskToBoard,
   removeBoard,
   removeColumn,
   removeTaskFromBoard,
 } from "@/app/Redux/Features/board/boardSlice";
-import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../app/Redux/store";
-import {
-  deletePopup,
-  removeInformation,
-} from "@/app/Redux/Features/remove/removeSlice";
+import { deletePopup } from "@/app/Redux/Features/remove/removeSlice";
+import { removeTask } from "@/app/Redux/Features/task/taskSlice";
 
 const DeletePopup = () => {
-  const selectedBoard = useSelector((state: RootState) => state.board.selectedBoard);
+  const selectedBoard = useSelector(
+    (state: RootState) => state.board.selectedBoard
+  );
 
   const removeInformation = useSelector(
     (state: RootState) => state.remove.removeInformation
@@ -26,17 +20,25 @@ const DeletePopup = () => {
 
   const dispatch = useDispatch();
   const toggle = () => {
-    if (removeInformation.objectType === 'Board'){
-
+    if (removeInformation.objectType === "Board") {
       dispatch(removeBoard({ boardIndex: removeInformation.index }));
     }
-    if (removeInformation.objectType === 'Column'){
-
-      dispatch(removeColumn({ columnIndex: removeInformation.index, selectedBoard }));
+    if (removeInformation.objectType === "Column") {
+      dispatch(
+        removeColumn({ columnIndex: removeInformation.index, selectedBoard })
+      );
     }
-    if (removeInformation.objectType === 'Task'){
-      console.log('col at 1 ' + removeInformation.column)
-      dispatch(removeTaskFromBoard({ taskIndex: removeInformation.index, selectedBoard, column: removeInformation.column}));
+    if (removeInformation.objectType === "Task") {
+      dispatch(
+        removeTaskFromBoard({
+          taskIndex: removeInformation.index,
+          selectedBoard,
+          column: removeInformation.column,
+        })
+        
+        );
+        dispatch(removeTask(removeInformation.taskId))
+        
     }
     dispatch(deletePopup());
   };

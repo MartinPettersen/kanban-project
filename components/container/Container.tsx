@@ -5,10 +5,8 @@ import type { RootState } from "../../app/Redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import {
   changeColumnOrder,
-  changeName,
   changeTaskOrder,
 } from "@/app/Redux/Features/board/boardSlice";
-import { Board } from "@/types/Board";
 import Column from "./Column";
 import { useEffect, useState } from "react";
 import { TaskState } from "@/types/TaskState";
@@ -22,10 +20,7 @@ const Container = () => {
 
   const dispatch = useDispatch();
 
-
-
   const [taskStates, setTaskStates] = useState<TaskState[]>();
-
 
   useEffect(() => {
     if (typeof boards[selectedBoard] !== "undefined") {
@@ -41,7 +36,6 @@ const Container = () => {
     }
   }, [selectedBoard]);
 
-  //const taskStates = boards[selectedBoard].taskStates;
   useEffect(() => {}, []);
 
   const onDragEnd = (result: DropResult) => {
@@ -59,8 +53,6 @@ const Container = () => {
     }
 
     if (type === "column") {
-
-
       dispatch(
         changeColumnOrder({
           selectedBoard,
@@ -74,11 +66,6 @@ const Container = () => {
     const startTaskStateColumn = source.droppableId;
     const finishTaskStateColumn = destination.droppableId;
 
-    /*
-    const currentColumn = taskStates.find(
-      (element) => element.id === startTaskStateColumn
-    );
-      */
     dispatch(
       changeTaskOrder({
         selectedBoard,
@@ -99,7 +86,7 @@ const Container = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      {winReady && (typeof boards[selectedBoard] !== "undefined") ? (
+      {winReady && typeof boards[selectedBoard] !== "undefined" ? (
         <Droppable
           droppableId="columns-container"
           direction="horizontal"
@@ -112,7 +99,7 @@ const Container = () => {
               className="   w-[100%] h-[100%]"
             >
               <div className="flex justify-center gap-2 flex-row">
-                {taskStates.map((taskState, i) => (
+                {taskStates!.map((taskState, i) => (
                   <Column
                     key={taskState.name}
                     id={taskState.name}

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import type { RootState } from "../../app/Redux/store";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Draggable } from "react-beautiful-dnd";
 import DeleteButton from "../delete/DeleteButton";
 
@@ -25,7 +25,7 @@ const Task = ({ task, index, columnColor, column }: Props) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          data-isDragging={snapshot.isDragging}
+          data-isdragging={snapshot.isDragging}
           className={`${
             snapshot.isDragging ? "bg-green-300" : columnColor
           } rounded-xl p-2 flex flex-col  ml-4 mr-4 mb-2 mt-2`}
@@ -40,6 +40,7 @@ const Task = ({ task, index, columnColor, column }: Props) => {
                 index={index}
                 objectType={"Task"}
                 column={column}
+                taskId={tasks[task].id}
               />
             </div>
           </div>

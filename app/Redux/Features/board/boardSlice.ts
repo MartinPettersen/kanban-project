@@ -2,30 +2,6 @@
 
 import { Board } from '@/types/Board';
 import { createSlice } from '@reduxjs/toolkit';
-/*
-opprette board:
-        board name:
-          velg hva slags states man vil ha for tasks
-            ha et checkbox system for hvilke states man velger
-              todo
-              URGENT
-              plan
-              in progress
-              peer review
-              test
-              deploy 
-              done
-            alle skal ha egen farge
-            ha et felt som lar deg lage en egen state
-              "did we miss something then create your own"
-                navne felt
-                velge av et par forutbestemte farger
-            valgte states blir lagt i en array av states
-            skal kunne flytte states rundt i riktig rekkefølge
-
-            skal hver state ha en liste med tasks eller skal hver task ha en state?
-
-*/
 
 export interface BoardState {
     selectedBoard: number,
@@ -174,11 +150,6 @@ export const boardSlice = createSlice({
   },
   removeTaskFromBoard: (state, action) => {
     const {selectedBoard, taskIndex, column} = action.payload;
-    console.log('board ' + selectedBoard)
-    console.log('task ' + taskIndex)
-    console.log('column ' + column)
-
-
     state.boards[selectedBoard].taskStates[column].tasks.splice(taskIndex, 1);
   }
     }

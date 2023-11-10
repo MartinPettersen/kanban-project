@@ -7,29 +7,23 @@ import type { RootState } from "../../app/Redux/store";
 
 const CreateTask = () => {
   const dispatch = useDispatch();
-
   const toggle = () => {
     dispatch(createTask());
   };
-
   const [taskName, setTaskName] = useState("Default");
   const [taskDescription, setTaskDescription] = useState("No Description");
   const [taskNameClicked, setTaskNameClicked] = useState(false);
   const [descriptionClicked, setDesciptionClicked] = useState(false);
   const [columnTracker, setColumnTracker] = useState(0);
-
   const [dropDown, setDropDown] = useState(false);
-
   const taskTracker = useSelector((state: RootState) => state.task.taskTracker);
   const taskStateList = useSelector(
     (state: RootState) =>
       state.board.boards[state.board.selectedBoard].taskStates
   );
-
   const selectedBoard = useSelector(
     (state: RootState) => state.board.selectedBoard
   );
-
   const addTaskHandle = () => {
     dispatch(
       addTask({
@@ -44,7 +38,6 @@ const CreateTask = () => {
         column: columnTracker,
       })
     );
-
     toggle();
   };
 
@@ -70,14 +63,6 @@ const CreateTask = () => {
     }
   };
 
-  /*
-        'task-1': {
-                id: "task-1",
-                name: "first step",
-                description: "create first board",
-                subtask: []
-              },
-*/
   return (
     <div className="w-full h-full z-10 flex items-center justify-center backdrop-filter backdrop-brightness-50  items">
       <div className="w-full fixed h-full z-100" onClick={() => toggle()}></div>
@@ -107,14 +92,28 @@ const CreateTask = () => {
           </div>
 
           <div className="text-slate-100 w-[15em]">
-            <p >Select start Column</p>
+            <p>Select start Column</p>
             <div className="bg-slate-800">
-              {dropDown? <div>
-                {taskStateList.map((column, index) => (
-                  <div key={index} className="hover:bg-slate-700" onClick={() => { setColumnTracker(index); setDropDown(!dropDown)}}>{column.name}</div>
+              {dropDown ? (
+                <div>
+                  {taskStateList.map((column, index) => (
+                    <div
+                      key={index}
+                      className="hover:bg-slate-700"
+                      onClick={() => {
+                        setColumnTracker(index);
+                        setDropDown(!dropDown);
+                      }}
+                    >
+                      {column.name}
+                    </div>
                   ))}
-              </div> 
-              : <div onClick={() => setDropDown(!dropDown)}>{taskStateList[columnTracker].name}</div>}
+                </div>
+              ) : (
+                <div onClick={() => setDropDown(!dropDown)}>
+                  {taskStateList[columnTracker].name}
+                </div>
+              )}
             </div>
           </div>
 

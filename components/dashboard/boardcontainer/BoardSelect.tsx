@@ -7,8 +7,6 @@ import BoardButton from "./BoardButton";
 const BoardSelect = () => {
   const boards = useSelector((state: RootState) => state.board.boards);
 
-  const dispatch = useDispatch();
-
   return (
     <div className="w-screen h-[2em] bg-[#222831]  flex  items-center justify-center ">
       <div className="w-[80%] h-[100%] flex items-center justify-center flex-row   gap-2">

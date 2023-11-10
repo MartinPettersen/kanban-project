@@ -18,8 +18,6 @@ type Props = {
 const Column = ({ taskState, index, id }: Props) => {
   const tasks = useSelector((state: RootState) => state.task.tasks);
 
-  const [background, setBackground] = useState("bg-gray-800");
-
   useEffect(() => {});
 
   return (
@@ -36,7 +34,7 @@ const Column = ({ taskState, index, id }: Props) => {
               <div
                 ref={provided.innerRef}
                 {...provided.droppableProps}
-                data-isDraggingOver={snapshot.isDraggingOver}
+                data-isdraggingover={snapshot.isDraggingOver}
                 className={`transition ${
                   snapshot.isDraggingOver ? "bg-slate-900" : "bg-gray-800"
                 } flex gap-2 flex-col rounded-xl w-[100%] h-[100%]`}

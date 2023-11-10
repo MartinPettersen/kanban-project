@@ -9,9 +9,7 @@ const DashBoard = () => {
     <div className=' flex justify-end gap-4 pr-8'>
       <CreateButton dispatchFunction={createBoard} display={'+Board'}/>
       <CreateButton dispatchFunction={createColumn} display={'+Column'}/>
-
       <CreateButton dispatchFunction={createTask} display={'+Task'}  />
-
     </div>
   )
 }

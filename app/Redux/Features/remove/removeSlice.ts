@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface TaskState {
-    removeInformation: { objectType: string, name: string, index: number, column?: number},
+    removeInformation: { objectType: string, name: string, index: number, column?: number, taskId?: string},
     deletePopup: boolean,
 
 }

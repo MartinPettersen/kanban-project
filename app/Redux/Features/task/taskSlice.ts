@@ -1,6 +1,5 @@
 "use client";
 
-import { Board } from '@/types/Board';
 import { Task } from '@/types/Task';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -61,22 +60,13 @@ export const taskSlice = createSlice({
             state.taskTracker += 1;
             const taskId = 'task-' + state.taskTracker;
             state.tasks = Object.assign({ [`${taskId}`]: { id: `task-${state.taskTracker}`, name: (action.payload.name), description: (action.payload.description), subtask: []}}, state.tasks);
-            
         },
-        /*
-        changeTaskName: (state, action) => {
-            state.tasks[0].name = action.payload;
-        },
-
         removeTask: (state, action) => {
-            if (action.payload.taskState > -1){
-                state.tasks.splice(action.payload.task, 1)
-            }
+            delete state.tasks[action.payload.task]
         }
-        */
     }
 });
 
-export const { /*increment, changeTaskName, addTask, removeTask */ addTask, incrementTaskTracker} = taskSlice.actions;
+export const { removeTask, addTask, incrementTaskTracker} = taskSlice.actions;
 
 export default taskSlice.reducer;

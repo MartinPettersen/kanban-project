@@ -1,44 +1,23 @@
 "use client";
-import {
-  createColumn,
-  createTask,
-} from "@/app/Redux/Features/create/createSlice";
-import { addTask } from "@/app/Redux/Features/task/taskSlice";
-import {
-  addColumn,
-  addTaskToBoard,
-} from "@/app/Redux/Features/board/boardSlice";
+import { createColumn } from "@/app/Redux/Features/create/createSlice";
+import { addColumn } from "@/app/Redux/Features/board/boardSlice";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../app/Redux/store";
-import ColorIndicator from "./ColorIndicator";
-
-import { useRouter } from "next/navigation";
 
 const CreateColumn = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
   const toggle = () => {
     dispatch(createColumn());
   };
 
   const [columnName, setColumnName] = useState("Default");
-  const [columnId, setColumnId] = useState("");
   const [columnNameClicked, setColumnNameClicked] = useState(false);
   const [color, setColor] = useState(0);
 
   const [dropDown, setDropDown] = useState(false);
 
-  const taskStateList = useSelector(
-    (state: RootState) =>
-      state.board.boards[state.board.selectedBoard].taskStates
-  );
-
-  useEffect(() => {
-    setColumnId(`taskState-${taskStateList.length}`);
-  }, []);
-  useEffect(() => {
-  }, [color]);
+  useEffect(() => {}, [color]);
 
   const addColumnHandle = () => {
     dispatch(addColumn({ selectedBoard, columnName, color, colorPalette }));
@@ -63,14 +42,7 @@ const CreateColumn = () => {
   const colorPalette = useSelector(
     (state: RootState) => state.board.boards[selectedBoard].colorPalette
   );
-  const colorList = {
-    red: "red-400",
-    blue: "blue-400",
-    green: "green-400",
-    yellow: "yellow-400",
-  };
 
-  // prøve å fikse det med å bruke redux
   return (
     <div className="w-full h-full z-10 flex items-center justify-center backdrop-filter backdrop-brightness-50  items">
       <div className="w-full fixed h-full z-100" onClick={() => toggle()}></div>
