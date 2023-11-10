@@ -25,7 +25,7 @@ const DeleteButton = ({name, index, objectType, column}: props) => {
       };
     
     return (
-    <div className='bg-slate-900 rounded-full  p-[0.15rem] opacity-50 hover:opacity-100 flex items-center justify-center'>
+    <div className='bg-slate-900 rounded-full hover:cursor-pointer  p-[0.15rem] opacity-50 hover:opacity-100 flex items-center justify-center'>
 
     <TrashIcon onClick={() => toggle()} className={` h-4 w-4 text-red-400  `}/> 
     
