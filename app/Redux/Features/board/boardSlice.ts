@@ -87,12 +87,9 @@ export const boardSlice = createSlice({
         changeBoard: (state, action) => {
             state.selectedBoard = action.payload.newBoard;
         },
-        changeName: (state, action) => {
-            state.boards[0].name = action.payload;
-        },
-        
+
         changeColumnOrder: (state, action) => {
-          const {sourceIndex, draggableId, selectedBoard, destinationIndex} = action.payload;
+          const {sourceIndex, selectedBoard, destinationIndex} = action.payload;
           const tempState = state.boards[selectedBoard].taskStates[sourceIndex];
           state.boards[selectedBoard].taskStates.splice(sourceIndex, 1);
           state.boards[selectedBoard].taskStates.splice(destinationIndex, 0, tempState);
@@ -112,42 +109,37 @@ export const boardSlice = createSlice({
             const {selectedBoard, taskId, column} = action.payload;
             state.boards[selectedBoard].taskStates[column].tasks.push(taskId);
         },
-        removeTaskState: (state, action) => {
-            if (action.payload.taskState > -1){
-                state.boards[0].taskStates.splice(action.payload.taskState, 1)
-            }
-        },
         addColumn: (state, action) => {
 
           const {selectedBoard, columnName, color, colorPalette } = action.payload;
           const taskStateId = 'taskState-' + (state.boards[selectedBoard].taskStates.length + 1);
           state.boards[selectedBoard].taskStates.push({ id: taskStateId, name: columnName, color: `bg-${colorPalette[color]}-400`, tasks: []});
           
-      },
-      addBoard: (state, action) => {
+        },
+        addBoard: (state, action) => {
 
-        const {boardName,  } = action.payload;
-        const boardId = 'board-' + (state.boards.length + 1);
-        state.boards.push({ id: boardId, name: boardName, colorPalette: ['red', 'sky','teal', ], taskStates: defaultColumns});
-        
-    },
-    removeBoard: (state, action) => {
-      const {boardIndex,  } = action.payload;
-      state.boards.splice(boardIndex, 1);
-      
-  },
-  removeColumn: (state, action) => {
-    const {columnIndex, selectedBoard } = action.payload;
-    state.boards[selectedBoard].taskStates.splice(columnIndex, 1);
-    
-  },
-  removeTaskFromBoard: (state, action) => {
-    const {selectedBoard, taskIndex, column} = action.payload;
-    state.boards[selectedBoard].taskStates[column].tasks.splice(taskIndex, 1);
-  }
+          const {boardName,  } = action.payload;
+          const boardId = 'board-' + (state.boards.length + 1);
+          state.boards.push({ id: boardId, name: boardName, colorPalette: ['red', 'sky','teal', ], taskStates: defaultColumns});
+          
+        },
+        removeBoard: (state, action) => {
+          const {boardIndex,  } = action.payload;
+          state.boards.splice(boardIndex, 1);
+          
+        },
+        removeColumn: (state, action) => {
+          const {columnIndex, selectedBoard } = action.payload;
+          state.boards[selectedBoard].taskStates.splice(columnIndex, 1);
+          
+        },
+        removeTaskFromBoard: (state, action) => {
+          const {selectedBoard, taskIndex, column} = action.payload;
+          state.boards[selectedBoard].taskStates[column].tasks.splice(taskIndex, 1);
+        },
     }
 });
 
-export const { changeName, addTaskToBoard, removeTaskState, changeBoard, changeTaskOrder, changeColumnOrder, addColumn, addBoard, removeBoard, removeColumn, removeTaskFromBoard} = boardSlice.actions;
+export const { addTaskToBoard, changeBoard, changeTaskOrder, changeColumnOrder, addColumn, addBoard, removeBoard, removeColumn, removeTaskFromBoard} = boardSlice.actions;
 
 export default boardSlice.reducer;
