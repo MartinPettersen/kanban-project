@@ -14,6 +14,7 @@ import { TaskState } from "@/types/TaskState";
 const Container = () => {
   const boards = useSelector((state: RootState) => state.board.boards);
 
+
   const selectedBoard = useSelector(
     (state: RootState) => state.board.selectedBoard
   );
@@ -101,7 +102,7 @@ const Container = () => {
               <div className="flex justify-center gap-2 flex-row">
                 {taskStates!.map((taskState, i) => (
                   <Column
-                    key={taskState.name}
+                    key={taskState.id}
                     id={taskState.name}
                     taskState={taskState}
                     index={i}

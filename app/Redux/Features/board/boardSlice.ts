@@ -104,15 +104,8 @@ export const boardSlice = createSlice({
 
           if (typeof state.boards[selectedBoard].taskStates.find((element) => element.id === startTaskStateColumn) != "undefined"){
 
-            if (startTaskStateColumn === finishTaskStateColumn){
-
-              state.boards[selectedBoard].taskStates.find((element) => element.id === startTaskStateColumn)!.tasks.splice(sourceIndex, 1);
-              state.boards[selectedBoard].taskStates.find((element) => element.id === startTaskStateColumn)!.tasks.splice(destinationIndex, 0, draggableId);
-            } else {
-              state.boards[selectedBoard].taskStates.find((element) => element.id === startTaskStateColumn)!.tasks.splice(sourceIndex, 1);
-              state.boards[selectedBoard].taskStates.find((element) => element.id === finishTaskStateColumn)!.tasks.splice(destinationIndex, 0, draggableId);
-              // sjekke om denna kan klare begge
-            }
+            state.boards[selectedBoard].taskStates.find((element) => element.id === startTaskStateColumn)!.tasks.splice(sourceIndex, 1);
+            state.boards[selectedBoard].taskStates.find((element) => element.id === finishTaskStateColumn)!.tasks.splice(destinationIndex, 0, draggableId);
           }
         },
         addTaskToBoard: (state, action) => {

@@ -52,9 +52,8 @@ const DeletePopup = () => {
       <div className="w-[40%] fixed h-[60%] z-101 bg-gradient-radial from-[#55657b] to-[#222831] rounded-xl p-4 flex items-center justify-center">
         <div className="flex flex-col gap-4 w-[100%] h-[100%] items-center justify-center">
           <h1 className="text-red-500 font-extrabold text-3xl flex justify-center items-center">
-            {" "}
-            Are you sure that you want to delete the{" "}
-            {removeInformation.objectType} called {removeInformation.name} ?{" "}
+            Are you sure that you want to delete the
+            {removeInformation.objectType} called {removeInformation.name} ?
           </h1>
           <div className="flex flex-row gap-10">
             <div

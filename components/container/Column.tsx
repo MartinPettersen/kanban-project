@@ -6,7 +6,6 @@ import Task from "./Task";
 import type { RootState } from "../../app/Redux/store";
 import { useSelector, useDispatch } from "react-redux";
 
-import styled from "styled-components";
 import DeleteButton from "../delete/DeleteButton";
 
 type Props = {
@@ -17,17 +16,20 @@ type Props = {
 
 const Column = ({ taskState, index, id }: Props) => {
   const tasks = useSelector((state: RootState) => state.task.tasks);
+  const [hovering, setHovering] = useState(false);
 
   useEffect(() => {});
 
   return (
-    <Draggable key={taskState.name} draggableId={taskState.id} index={index}>
+    <Draggable key={taskState.id} draggableId={taskState.id} index={index}>
       {(provided) => (
         <div
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
           className={`bg-gray-800 rounded-xl text-gray-200 flex gap-2 flex-col w-[20%] m-4 p-0`}
+          onMouseOver={() => setHovering(true)}
+          onMouseOut={() => setHovering(false)}
         >
           <Droppable key={taskState.id} droppableId={taskState.id} type="task">
             {(provided, snapshot) => (
@@ -45,11 +47,17 @@ const Column = ({ taskState, index, id }: Props) => {
                   </h1>
 
                   <div className="absolute top-0 right-0 p-2">
-                    <DeleteButton
-                      name={taskState.name}
-                      index={index}
-                      objectType={"Column"}
-                    />
+                    {hovering ? (
+                      <>
+                        <DeleteButton
+                          name={taskState.name}
+                          index={index}
+                          objectType={"Column"}
+                        />
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
                 {taskState.tasks.map((task, i) => (

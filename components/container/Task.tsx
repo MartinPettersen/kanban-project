@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import type { RootState } from "../../app/Redux/store";
 import { useSelector } from "react-redux";
 import { Draggable } from "react-beautiful-dnd";
@@ -14,6 +14,11 @@ type Props = {
 
 const Task = ({ task, index, columnColor, column }: Props) => {
   const tasks = useSelector((state: RootState) => state.task.tasks);
+
+  const [hovering, setHovering] = useState(false);
+
+
+
   return (
     <Draggable
       key={tasks[task].name}
@@ -29,12 +34,17 @@ const Task = ({ task, index, columnColor, column }: Props) => {
           className={`${
             snapshot.isDragging ? "bg-green-300" : columnColor
           } rounded-xl p-2 flex flex-col  ml-4 mr-4 mb-2 mt-2`}
+          onMouseOver={() => setHovering(true)}
+          onMouseOut={() => setHovering(false)}
+
         >
           <div className="relative">
             <h1 className="flex justify-center items-center text-white font-bold uppercase">
               {tasks[task].name}
             </h1>
             <div className="absolute top-0 right-0 ">
+            {hovering ? 
+              <>
               <DeleteButton
                 name={tasks[task].name}
                 index={index}
@@ -42,6 +52,10 @@ const Task = ({ task, index, columnColor, column }: Props) => {
                 column={column}
                 taskId={tasks[task].id}
               />
+              </>:
+              <></>
+              }
+              
             </div>
           </div>
           <div className="flex justify-center items-center">
