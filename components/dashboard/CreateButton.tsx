@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 type props = {
   display: string;
-  dispatchFunction: () => void; 
+  dispatchFunction: Function; 
 };
 
 const CreateButton = ({ display, dispatchFunction }: props) => {
