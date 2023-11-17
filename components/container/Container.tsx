@@ -99,7 +99,7 @@ const Container = () => {
               ref={provided.innerRef}
               className="   w-[100%] h-[100%]"
             >
-              <div className="flex justify-center gap-2 flex-row">
+              <div className="flex justify-center gap-2 sm:flex-row flex-col ">
                 {taskStates!.map((taskState, i) => (
                   <Column
                     key={taskState.id}

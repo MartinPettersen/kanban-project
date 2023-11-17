@@ -32,7 +32,7 @@ const CreateBoard = () => {
   return (
     <div className="w-full h-full z-10 flex items-center justify-center backdrop-filter backdrop-brightness-50  items">
       <div className="w-full fixed h-full z-100" onClick={() => toggle()}></div>
-      <div className="w-[40%] fixed h-[60%] z-101 bg-gradient-radial from-[#55657b] to-[#222831] rounded-xl ">
+      <div className="sm:w-[40%] fixed h-[60%] z-101 bg-gradient-radial from-[#55657b] to-[#222831] rounded-xl ">
         <div className="flex flex-col gap-4 w-[100%] h-[100%] items-center justify-center">
           <div>
             <p className="text-slate-100">Add a name for your Board:</p>

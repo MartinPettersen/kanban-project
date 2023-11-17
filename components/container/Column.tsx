@@ -27,7 +27,7 @@ const Column = ({ taskState, index, id }: Props) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          className={`bg-gray-800 rounded-xl text-gray-200 flex gap-2 flex-col w-[20%] m-4 p-0`}
+          className={`bg-gray-800 rounded-xl text-gray-200 flex gap-2 flex-col sm:w-[20%] m-4 p-0`}
           onMouseOver={() => setHovering(true)}
           onMouseOut={() => setHovering(false)}
         >
